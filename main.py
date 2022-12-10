@@ -1,10 +1,8 @@
-import logging
+from services.logger import LOGGER
 from fastapi import Depends, FastAPI
 from api.dependencies.request_validators import token_is_valid
 from api.routers import clients
 
-
-logging.getLogger("uvicorn.error")
 
 DEPENDENCIES = [Depends(token_is_valid)]
 

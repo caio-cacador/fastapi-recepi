@@ -1,4 +1,4 @@
-import logging
+from services.logger import LOGGER
 from typing import List
 from fastapi import APIRouter, Depends, Path, Body
 from api.dependencies.session import get_client_repo
@@ -6,7 +6,6 @@ from api.models.client import ClientModel
 from api.repositories.client_repository import ClientRepository
 from api.routers.schemas.client import *
 
-logger = logging.getLogger("uvicorn.error")
 router = APIRouter(prefix='/clients', tags=['Clients'])
 
 

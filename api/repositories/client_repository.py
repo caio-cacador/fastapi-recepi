@@ -1,9 +1,7 @@
-import logging
+from services.LOGGER import LOGGER
 from typing import List
 from api.models.client import ClientDocument, ClientModel
 from api.exceptions.repo_exceptions import ClientCanNotBeUpdatedError, ClientNotFoundError, ClientStatusError
-
-logger = logging.getLogger("uvicorn.error")
 
 
 class ClientRepository():
@@ -72,5 +70,5 @@ class ClientRepository():
             new_client.save()
             return new_client.model
         except Exception as ex:
-            logger.error('Error during client creation')
+            LOGGER.error('Error during client creation')
             raise ex
