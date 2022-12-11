@@ -1,6 +1,6 @@
-from services.logger import LOGGER
 from fastapi import HTTPException, Depends
 from fastapi.security import HTTPBasicCredentials, HTTPBearer
+from api.services.logger import LOGGER
 
 security = HTTPBearer()
 

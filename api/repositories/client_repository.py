@@ -1,4 +1,4 @@
-from services.LOGGER import LOGGER
+from api.services.logger import LOGGER
 from typing import List
 from api.models.client import ClientDocument, ClientModel
 from api.exceptions.repo_exceptions import ClientCanNotBeUpdatedError, ClientNotFoundError, ClientStatusError

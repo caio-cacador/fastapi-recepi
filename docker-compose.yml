@@ -1,13 +1,33 @@
-version: '3'
-
+version: '3.7'
 services:
 
-  mongo:
-      image: mongo
-      ports:
-        - "27017:27017"
-      environment:
-        MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
-        MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PSW}
-      volumes:
+  mongodb:
+    image: mongo
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PSW}
+    volumes:
       - .volumes/MongoDB:/data/db
+    networks:
+      - fastapi-recepi-network
+
+  fast-api:
+    build: .
+    entrypoint: uvicorn main:app --host 0.0.0.0 --reload
+    volumes:
+      - ./:/app/
+    ports:
+      - "${SERVICE_PORT}:${SERVICE_PORT}"
+    environment:
+      ENVIRONMENT: ${ENVIRONMENT}
+      SERVICE_HOST: ${SERVICE_HOST}
+      SERVICE_PORT: ${SERVICE_PORT}
+      MONGO_URL: ${MONGO_URL}
+    networks:
+      - fastapi-recepi-network
+    restart: on-failure
+
+networks:
+  fastapi-recepi-network:

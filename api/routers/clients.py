@@ -1,4 +1,4 @@
-from services.logger import LOGGER
+from api.services.logger import LOGGER
 from typing import List
 from fastapi import APIRouter, Depends, Path, Body
 from api.dependencies.session import get_client_repo

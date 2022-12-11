@@ -1,4 +1,4 @@
-from services.logger import LOGGER
+from api.services.logger import LOGGER
 from mongoengine import connect, disconnect
 from decouple import config
 
