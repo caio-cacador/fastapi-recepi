@@ -8,15 +8,12 @@ ENV LC_ALL=C.UTF-8 \
 WORKDIR /app
 
 RUN apt update -y && \
-    apt upgrade -y && \
-    apt install pipenv -y
+    apt upgrade -y
 
 COPY ./api/ api
 COPY ./main.py main.py
 COPY ./requirements.txt requirements.txt
-COPY ./entrypoint.sh entrypoint.sh
 RUN pip install -r requirements.txt
-
 # ========================= Tests stage
 FROM base AS tests
 
@@ -27,4 +24,5 @@ ENTRYPOINT ["python", "pytest"]
 # ========================= App stage
 FROM base AS app
 
+COPY ./entrypoint.sh entrypoint.sh
 ENTRYPOINT ["./entrypoint.sh"]

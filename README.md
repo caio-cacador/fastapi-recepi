@@ -1,5 +1,5 @@
 # FastAPI Recepi
-API Recipe using FastAPI, PyDantic, Python Decoupe and MongoEngine
+API Recipe using FastAPI, PyDantic, Python Decoupe and AsyncIOMotor
 
 
 ## Instructions for running the application

@@ -43,7 +43,6 @@ EXAMPLE_UPDATE_CLIENT_BALANCE = UpdateClientBalance(
 ).dict()
 
 
-
 EXAMPLE_UPDATE_CLIENT_STATUS = UpdateClientStatus(
     status=False
 ).dict()

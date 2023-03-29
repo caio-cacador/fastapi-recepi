@@ -1,7 +1,6 @@
 from api.services.logger import LOGGER
 from typing import List
-from fastapi import APIRouter, Depends, Path, Body
-from api.dependencies.session import get_client_repo
+from fastapi import APIRouter, Path, Body, Depends
 from api.models.client import ClientModel
 from api.repositories.client_repository import ClientRepository
 from api.routers.schemas.client import *
@@ -9,9 +8,9 @@ from api.routers.schemas.client import *
 router = APIRouter(prefix='/clients', tags=['Clients'])
 
 
-@router.get("/list}", status_code=200, response_model=List[ClientModel])
+@router.get("/list", status_code=200, response_model=List[ClientModel])
 async def list_all_clients(
-        *, client_repo: ClientRepository = Depends(get_client_repo)
+        *, client_repo: ClientRepository = Depends(ClientRepository) 
     ) -> List[dict]:
     """
     List all clients in database
@@ -24,7 +23,7 @@ async def list_all_clients(
 async def get_client_by_id(
         *, 
         client_id: str = Path(**CLIENT_ID),
-        client_repo: ClientRepository = Depends(get_client_repo)
+        client_repo: ClientRepository = Depends(ClientRepository)
     ) -> dict:
     """
     Get Client by ID
@@ -37,21 +36,19 @@ async def get_client_by_id(
 async def create_new_client(
         *, 
         new_client: CreateClient = Body(example=EXAMPLE_CREATE_CLIENT),
-        client_repo: ClientRepository = Depends(get_client_repo)
+        client_repo: ClientRepository = Depends(ClientRepository)
     ) -> dict:
     """
     Create a Client
     """
-    new_client = await client_repo.create_client(**new_client.dict())
-    return new_client
-
+    return await client_repo.create_client(**new_client.dict())
 
 @router.patch("/update/personal_info/{client_id}", status_code=200, response_model=ClientModel)
 async def update_personal_info(
         *, 
         client_id: str = Path(**CLIENT_ID),
         info: UpdateClientBasicInfo = Body(example=EXAMPLE_UPDATE_CLIENT_BASIC_INFO),
-        client_repo: ClientRepository = Depends(get_client_repo)
+        client_repo: ClientRepository = Depends(ClientRepository)
     ) -> dict:
     """
     Update a Client personal infomation
@@ -65,7 +62,7 @@ async def update_balance(
         *, 
         client_id: str = Path(**CLIENT_ID),
         data: UpdateClientBalance = Body(example=EXAMPLE_UPDATE_CLIENT_BALANCE),
-        client_repo: ClientRepository = Depends(get_client_repo)
+        client_repo: ClientRepository = Depends(ClientRepository)
     ) -> dict:
     """
     Update a Client balance
@@ -79,7 +76,7 @@ async def update_status(
         *, 
         client_id: str = Path(**CLIENT_ID),
         data: UpdateClientStatus = Body(example=EXAMPLE_UPDATE_CLIENT_STATUS),
-        client_repo: ClientRepository = Depends(get_client_repo)
+        client_repo: ClientRepository = Depends(ClientRepository)
     ) -> dict:
     """
     Update a Client status

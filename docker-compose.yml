@@ -13,21 +13,21 @@ services:
     networks:
       - fastapi-recepi-network
 
-  fast-api:
-    build: .
-    entrypoint: uvicorn main:app --host 0.0.0.0 --reload
-    volumes:
-      - ./:/app/
-    ports:
-      - "${SERVICE_PORT}:${SERVICE_PORT}"
-    environment:
-      ENVIRONMENT: ${ENVIRONMENT}
-      SERVICE_HOST: ${SERVICE_HOST}
-      SERVICE_PORT: ${SERVICE_PORT}
-      MONGO_URL: ${MONGO_URL}
-    networks:
-      - fastapi-recepi-network
-    restart: on-failure
+  # fast-api:
+  #   build: .
+  #   entrypoint: uvicorn main:app --host 0.0.0.0 --reload
+  #   volumes:
+  #     - ./:/app/
+  #   ports:
+  #     - "${SERVICE_PORT}:${SERVICE_PORT}"
+  #   environment:
+  #     ENVIRONMENT: ${ENVIRONMENT}
+  #     SERVICE_HOST: ${SERVICE_HOST}
+  #     SERVICE_PORT: ${SERVICE_PORT}
+  #     MONGO_URL: ${MONGO_URL}
+  #   networks:
+  #     - fastapi-recepi-network
+  #   restart: on-failure
 
 networks:
   fastapi-recepi-network:

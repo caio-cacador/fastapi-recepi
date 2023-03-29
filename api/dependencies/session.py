@@ -1,11 +1,8 @@
 from api.services.logger import LOGGER
-from mongoengine import connect, disconnect
+from motor.motor_asyncio import AsyncIOMotorClient, AsyncIOMotorCollection
 from decouple import config
 
-from api.repositories.client_repository import ClientRepository
 
-
-def get_client_repo():
+def get_mongodb_client() -> AsyncIOMotorCollection:
     LOGGER.info('Connecting to the database')
-    connect('clients', host=config('MONGO_URL'))
-    return ClientRepository()
+    return AsyncIOMotorClient(config("MONGO_URL"))
